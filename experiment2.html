@@ -1,12 +1,186 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Company Website</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Employee Management System</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <style>
+        body{
+            font-family:Arial;
+            background:#f2f2f2;
+            margin:20px;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        .box{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            width:90%;
+            margin:auto;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        input{
+            width:180px;
+            padding:8px;
+            margin:5px;
+        }
+
+        button{
+            padding:10px 15px;
+            margin:5px;
+            cursor:pointer;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        table,th,td{
+            border:1px solid black;
+        }
+
+        th{
+            background:#4CAF50;
+            color:white;
+        }
+
+        th,td{
+            padding:10px;
+            text-align:center;
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>Company Website</h1>
+<div class="box">
+
+<h2>Employee Management System</h2>
+
+<input type="text" id="id" placeholder="Employee ID">
+<input type="text" id="name" placeholder="Employee Name">
+<input type="text" id="dept" placeholder="Department">
+<input type="text" id="designation" placeholder="Designation">
+<input type="number" id="salary" placeholder="Salary">
+<input type="text" id="phone" placeholder="Phone">
+
+<br>
+
+<button onclick="addEmployee()">Add Employee</button>
+<button onclick="downloadPDF()">Download PDF</button>
+<button onclick="downloadExcel()">Download Excel</button>
+
+<table id="employeeTable">
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Department</th>
+<th>Designation</th>
+<th>Salary</th>
+<th>Phone</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let employees=[];
+
+function addEmployee(){
+
+let emp={
+
+id:document.getElementById("id").value,
+name:document.getElementById("name").value,
+dept:document.getElementById("dept").value,
+designation:document.getElementById("designation").value,
+salary:document.getElementById("salary").value,
+phone:document.getElementById("phone").value
+
+};
+
+employees.push(emp);
+
+let table=document.getElementById("employeeTable").getElementsByTagName("tbody")[0];
+
+let row=table.insertRow();
+
+row.insertCell(0).innerHTML=emp.id;
+row.insertCell(1).innerHTML=emp.name;
+row.insertCell(2).innerHTML=emp.dept;
+row.insertCell(3).innerHTML=emp.designation;
+row.insertCell(4).innerHTML=emp.salary;
+row.insertCell(5).innerHTML=emp.phone;
+
+document.getElementById("id").value="";
+document.getElementById("name").value="";
+document.getElementById("dept").value="";
+document.getElementById("designation").value="";
+document.getElementById("salary").value="";
+document.getElementById("phone").value="";
+}
+
+function downloadExcel(){
+
+let worksheet=XLSX.utils.json_to_sheet(employees);
+
+let workbook=XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(workbook,worksheet,"Employees");
+
+XLSX.writeFile(workbook,"Employees.xlsx");
+
+}
+
+function downloadPDF(){
+
+const {jsPDF}=window.jspdf;
+
+let doc=new jsPDF();
+
+doc.text("Employee Details",14,15);
+
+doc.autoTable({
+
+head:[["ID","Name","Department","Designation","Salary","Phone"]],
+
+body:employees.map(e=>[
+e.id,
+e.name,
+e.dept,
+e.designation,
+e.salary,
+e.phone
+])
+
+});
+
+doc.save("Employees.pdf");
+
+}
+
+</script>
 
 </body>
 </html>
