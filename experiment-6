@@ -1,0 +1,732 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Result Management System</title>
+
+    <style>
+
+        /* =========================
+           GENERAL STYLING
+        ========================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f5f9;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        h2 {
+            margin: 25px 0 15px;
+            color: #333;
+        }
+
+        /* =========================
+           FORM
+        ========================== */
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        /* Marks Grid */
+
+        .marks-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================== */
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .reset-btn {
+            background-color: #6c757d;
+        }
+
+        .reset-btn:hover {
+            background-color: #545b62;
+        }
+
+        /* =========================
+           RESULT TABLE
+        ========================== */
+
+        .result-section {
+            margin-top: 40px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* PASS */
+
+        .pass {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* FAIL */
+
+        .fail {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Delete Button */
+
+        .delete-btn {
+            background-color: #dc3545;
+            padding: 7px 12px;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background-color: #a71d2a;
+        }
+
+        /* =========================
+           RESPONSIVE DESIGN
+        ========================== */
+
+        @media (max-width: 768px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .marks-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- PAGE TITLE -->
+
+        <h1>Student Result Management System</h1>
+
+
+        <!-- STUDENT FORM -->
+
+        <form id="resultForm">
+
+            <!-- Student ID -->
+
+            <div class="form-group">
+
+                <label for="studentId">
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Enter Student ID"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Student Name -->
+
+            <div class="form-group">
+
+                <label for="studentName">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter Student Name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SUBJECT MARKS -->
+
+            <h2>Enter Subject Marks</h2>
+
+            <div class="marks-container">
+
+                <!-- HTML -->
+
+                <div class="form-group">
+
+                    <label for="html">
+                        HTML
+                    </label>
+
+                    <input
+                        type="number"
+                        id="html"
+                        min="0"
+                        max="100"
+                        placeholder="0 - 100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CSS -->
+
+                <div class="form-group">
+
+                    <label for="css">
+                        CSS
+                    </label>
+
+                    <input
+                        type="number"
+                        id="css"
+                        min="0"
+                        max="100"
+                        placeholder="0 - 100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- JavaScript -->
+
+                <div class="form-group">
+
+                    <label for="javascript">
+                        JavaScript
+                    </label>
+
+                    <input
+                        type="number"
+                        id="javascript"
+                        min="0"
+                        max="100"
+                        placeholder="0 - 100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Java -->
+
+                <div class="form-group">
+
+                    <label for="java">
+                        Java
+                    </label>
+
+                    <input
+                        type="number"
+                        id="java"
+                        min="0"
+                        max="100"
+                        placeholder="0 - 100"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Database -->
+
+                <div class="form-group">
+
+                    <label for="database">
+                        Database
+                    </label>
+
+                    <input
+                        type="number"
+                        id="database"
+                        min="0"
+                        max="100"
+                        placeholder="0 - 100"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <button type="submit">
+                Calculate Result
+            </button>
+
+            <button
+                type="reset"
+                class="reset-btn"
+            >
+                Reset
+            </button>
+
+        </form>
+
+
+        <!-- RESULT SECTION -->
+
+        <div class="result-section">
+
+            <h2>Student Results</h2>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>S.No</th>
+
+                            <th>Student ID</th>
+
+                            <th>Name</th>
+
+                            <th>Total</th>
+
+                            <th>Percentage</th>
+
+                            <th>Grade</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="resultTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           GET HTML ELEMENTS
+        ========================== */
+
+        const form =
+            document.getElementById("resultForm");
+
+        const resultTable =
+            document.getElementById("resultTable");
+
+
+        /* Student counter */
+
+        let studentCount = 0;
+
+
+        /* =========================
+           FORM SUBMIT EVENT
+        ========================== */
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                /* Prevent page refresh */
+
+                event.preventDefault();
+
+
+                /* =========================
+                   GET STUDENT DETAILS
+                ========================== */
+
+                const studentId =
+                    document
+                    .getElementById("studentId")
+                    .value
+                    .trim();
+
+                const studentName =
+                    document
+                    .getElementById("studentName")
+                    .value
+                    .trim();
+
+
+                /* =========================
+                   GET MARKS
+                ========================== */
+
+                const html =
+                    Number(
+                        document
+                        .getElementById("html")
+                        .value
+                    );
+
+                const css =
+                    Number(
+                        document
+                        .getElementById("css")
+                        .value
+                    );
+
+                const javascript =
+                    Number(
+                        document
+                        .getElementById("javascript")
+                        .value
+                    );
+
+                const java =
+                    Number(
+                        document
+                        .getElementById("java")
+                        .value
+                    );
+
+                const database =
+                    Number(
+                        document
+                        .getElementById("database")
+                        .value
+                    );
+
+
+                /* =========================
+                   STORE MARKS IN ARRAY
+                ========================== */
+
+                const marks = [
+                    html,
+                    css,
+                    javascript,
+                    java,
+                    database
+                ];
+
+
+                /* =========================
+                   VALIDATE MARKS
+                ========================== */
+
+                const invalidMarks =
+                    marks.some(
+                        mark =>
+                            mark < 0 ||
+                            mark > 100
+                    );
+
+
+                if (invalidMarks) {
+
+                    alert(
+                        "Marks must be between 0 and 100."
+                    );
+
+                    return;
+                }
+
+
+                /* =========================
+                   CALCULATE TOTAL
+                ========================== */
+
+                const total =
+                    marks.reduce(
+                        (sum, mark) =>
+                            sum + mark,
+                        0
+                    );
+
+
+                /* =========================
+                   CALCULATE PERCENTAGE
+                ========================== */
+
+                const percentage =
+                    total / marks.length;
+
+
+                /* =========================
+                   CHECK PASS / FAIL
+                   
+                   Minimum 40 marks
+                   required in every subject
+                ========================== */
+
+                const passed =
+                    marks.every(
+                        mark => mark >= 40
+                    );
+
+
+                /* =========================
+                   CALCULATE GRADE
+                ========================== */
+
+                let grade;
+
+
+                if (!passed) {
+
+                    grade = "F";
+
+                }
+                else if (percentage >= 90) {
+
+                    grade = "A+";
+
+                }
+                else if (percentage >= 80) {
+
+                    grade = "A";
+
+                }
+                else if (percentage >= 70) {
+
+                    grade = "B";
+
+                }
+                else if (percentage >= 60) {
+
+                    grade = "C";
+
+                }
+                else if (percentage >= 50) {
+
+                    grade = "D";
+
+                }
+                else {
+
+                    grade = "F";
+                }
+
+
+                /* =========================
+                   PASS / FAIL STATUS
+                ========================== */
+
+                const status =
+                    passed
+                    ? "PASS"
+                    : "FAIL";
+
+
+                /* Increase student count */
+
+                studentCount++;
+
+
+                /* =========================
+                   CREATE TABLE ROW
+                ========================== */
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${studentCount}
+                    </td>
+
+                    <td>
+                        ${studentId}
+                    </td>
+
+                    <td>
+                        ${studentName}
+                    </td>
+
+                    <td>
+                        ${total}
+                    </td>
+
+                    <td>
+                        ${percentage.toFixed(2)}%
+                    </td>
+
+                    <td>
+                        ${grade}
+                    </td>
+
+                    <td class="${
+                        passed
+                        ? "pass"
+                        : "fail"
+                    }">
+
+                        ${status}
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteRow(this)"
+                        >
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                /* Add row to table */
+
+                resultTable.appendChild(row);
+
+
+                /* Clear form */
+
+                form.reset();
+
+            }
+        );
+
+
+        /* =========================
+           DELETE ROW FUNCTION
+        ========================== */
+
+        function deleteRow(button) {
+
+            /* Get table row */
+
+            const row =
+                button
+                .parentElement
+                .parentElement;
+
+
+            /* Remove row */
+
+            row.remove();
+
+        }
+
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Session Storage Login</title>
+  </head>
+
+  <body>
+    <h2>Net Banking Login - Session Storage</h2>
+
+    <input type="text" id="username" placeholder="Enter Username" />
+    <br /><br />
+
+    <input type="password" id="password" placeholder="Enter Password" />
+    <br /><br />
+
+    <button onclick="login()">Login</button>
+    <button onclick="showData()">Show Session Data</button>
+    <button onclick="logout()">Logout</button>
+
+    <p id="message"></p>
+
+    <script>
+      // LOGIN
+      function login() {
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        if (username === "Ram" && password === "1234") {
+          // Store username in Session Storage
+          sessionStorage.setItem("username", username);
+
+          document.getElementById("message").innerText =
+            "Login Successful! Welcome " + username;
+        } else {
+          document.getElementById("message").innerText =
+            "Invalid Username or Password";
+        }
+      }
+
+      // SHOW SESSION DATA
+      function showData() {
+        let user = sessionStorage.getItem("username");
+
+        if (user) {
+          document.getElementById("message").innerText =
+            "Session Storage: " + user;
+        } else {
+          document.getElementById("message").innerText = "No Session Data";
+        }
+      }
+
+      // LOGOUT
+      function logout() {
+        sessionStorage.removeItem("username");
+
+        document.getElementById("message").innerText =
+          "Logged Out Successfully";
+      }
+
+      
+    </script>
+  </body>
+</html>

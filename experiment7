@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Weather Dashboard</title>
+
+<style>
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#e3f2fd;
+}
+.box{
+    background:white;
+    width:350px;
+    margin:50px auto;
+    padding:25px;
+    border-radius:10px;
+}
+input,button{
+    padding:10px;
+    margin:5px;
+}
+button{
+    background:#1565c0;
+    color:white;
+    border:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Weather Information Dashboard</h1>
+
+<div class="box">
+
+<input id="city" placeholder="Enter city">
+
+<button onclick="getWeather()">Search</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+async function getWeather(){
+
+    let city = document.getElementById("city").value;
+    let key = "YOUR_API_KEY";
+
+    try{
+
+        let r = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`
+        );
+
+        let d = await r.json();
+
+        if(r.ok){
+
+            document.getElementById("result").innerHTML =
+            `<h2>${d.name}</h2>
+            <p>Temperature: ${d.main.temp} °C</p>
+            <p>Humidity: ${d.main.humidity}%</p>
+            <p>Wind Speed: ${d.wind.speed} m/s</p>
+            <p>Weather: ${d.weather[0].description}</p>`;
+
+        }else{
+            document.getElementById("result").innerHTML =
+            "<p>City not found</p>";
+        }
+
+    }
+    catch(error){
+        document.getElementById("result").innerHTML =
+        "<p>API Error</p>";
+    }
+}
+
+</script>
+
+</body>
+</html>

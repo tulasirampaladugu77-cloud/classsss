@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Admission Form</title>
+</head>
+
+<body>
+
+    <h2>Student Admission Form</h2>
+
+    <form>
+
+        <label>Student Name:</label>    
+        <input type="text" name="student_name">
+        <br><br>
+
+        <label>Phone Number:</label>
+        <input type="tel" name="phone">
+        <br><br>
+        <label>Email:</label>
+        <input type="email" name="email">
+        <br><br>
+
+        <label>Roll Number:</label>
+        <input type="text" name="roll_number">
+        <br><br>
+        <label>Course:</label>
+        <select name="course">
+            <option value="">-- Select Course --</option>
+            <option value="cse">Computer Science Engineering</option>
+            <option value="ece">Electronics and Communication</option>
+            <option value="eee">Electrical Engineering</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+        </select>
+        <br><br>
+        <label>Gender:</label>
+        <div>
+            <input type="radio" name="gender" value="male">
+            <label>Male</label>
+            
+            <input type="radio" name="gender" value="female">
+            <label>Female</label>
+            <input type="radio" name="gender" value="other">
+            <label>Other</label>
+        </div>
+        <br>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>

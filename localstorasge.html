@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>local storage vs session storage</title>
+    </head>
+    <body>
+        <h2>Net Banking Login</h2>
+        <form>
+            <input type="text" name="username" placeholder="Enter your username">
+            <br><br>
+            <input type="password" name="password" placeholder="Enter your password">
+            <br><br>
+            <input type="submit" value="Login">
+        </form>
+        <script>
+            function login() {
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+                if (username === "balaji" && password === "1234") {
+                    alert("Login successful!");
+                } else {
+                    alert("Invalid username or password.");
+                }
+            }
+        </script>
+        <script>
+            function showData(){
+                let localuser = localStorage.getItem("username");
+                document.getElementById("messager").innerHTML =
+                          "local storage: " + localuser;
+            }
+        </script>
+    </body>
+</html>

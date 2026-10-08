@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Admission Form — Enhanced</title>
+  <style>
+    :root{--bg:#f7fafc;--card:#fff;--accent:#0b79f7;--muted:#6b7280}
+    *{box-sizing:border-box}
+    body{font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);margin:0;padding:24px;display:flex;justify-content:center}
+    .card{width:100%;max-width:900px;background:var(--card);padding:24px;border-radius:12px;box-shadow:0 6px 20px rgba(2,6,23,0.08)}
+    h1{margin:0 0 6px;font-size:20px}
+    form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .full{grid-column:1 / -1}
+    label{font-size:14px;color:#111;display:block;margin-bottom:6px}
+    input,select,textarea{width:100%;padding:8px 10px;border:1px solid #e6e9ef;border-radius:8px;font-size:14px}
+    textarea{min-height:100px}
+    .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+    button.primary{background:var(--accent);color:#fff;border:0;padding:10px 14px;border-radius:8px}
+    button.secondary{background:#f3f4f6;border:1px solid #e6e9ef;padding:10px 14px;border-radius:8px}
+    .error{color:#b91c1c;font-size:13px;margin-top:6px}
+    @media (max-width:720px){form{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Student Admission Form</h1>
+    <p style="color:var(--muted);margin-top:4px;margin-bottom:12px">(This is an enhanced copy — your original file was not modified.)</p>
+
+    <form id="admissionForm" novalidate>
+
+        <label>Student Name:</label>
+        <input type="text" name="studentname" id="studentname">
+        <br><br>
+
+        <label>Date of Birth:</label>
+        <input type="date" name="dob" id="dob">
+        <br><br>
+
+        <label>Gender:</label>
+        <div style="display:flex;gap:10px;align-items:center">
+          <label><input type="radio" name="gender" value="male"> Male</label>
+          <label><input type="radio" name="gender" value="female"> Female</label>
+          <label><input type="radio" name="gender" value="other"> Other</label>
+        </div>
+        <br>
+
+        <label>Email:</label>
+        <input type="email" name="email" id="email">
+        <br><br>
+
+        <label>Phone Number:</label>
+        <input type="tel" name="phone" id="phone">
+        <br><br>
+
+        <label>Address:</label>
+        <br>
+        <textarea name="address" rows="4" cols="30" id="address"></textarea>
+        <br><br>
+
+        <label>Course:</label>
+        <select name="course" id="course">
+            <option value="">-- Select Course --</option>
+            <option value="cse">Computer Science Engineering</option>
+            <option value="ece">Electronics and Communication</option>
+            <option value="eee">Electrical Engineering</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+        </select>
+        <br><br>
+
+        <label>Qualification:</label>
+        <input type="text" name="qualification" id="qualification">
+        <br><br>
+
+        <label>10th Percentage:</label>
+        <input type="number" name="percentage" id="percentage" step="0.01" min="0" max="100">
+        <br><br>
+
+        <label>Father's Name:</label>
+        <input type="text" name="fathername" id="fathername">
+        <br><br>
+
+        <label>Mother's Name:</label>
+        <input type="text" name="mothername" id="mothername">
+        <br><br>
+
+        <label>Upload Photo:</label>
+        <input type="file" name="photo" id="photo" accept="image/*">
+        <br><br>
+
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" name="declaration" id="declaration"> I declare that the information provided is correct.</label>
+        <div id="formError" class="error" aria-live="polite" role="status"></div>
+        <br>
+
+        <div class="full actions">
+          <button type="reset" class="secondary">Reset</button>
+          <button type="submit" class="primary">Submit</button>
+        </div>
+
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('admissionForm');
+      const errorBox = document.getElementById('formError');
+
+      function showError(message, field){
+        errorBox.textContent = message;
+        if(field) field.focus();
+      }
+
+      function clearError(){ errorBox.textContent = '' }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        clearError();
+        const name = document.getElementById('studentname').value.trim();
+        const dob = document.getElementById('dob').value;
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const course = document.getElementById('course').value;
+        const declaration = document.getElementById('declaration').checked;
+
+        if(!name) return showError('Please enter student name.', document.getElementById('studentname'));
+        if(!dob) return showError('Please provide date of birth.', document.getElementById('dob'));
+        if(!email || !/^\S+@\S+\.\S+$/.test(email)) return showError('Please enter a valid email.', document.getElementById('email'));
+        if(!phone) return showError('Please enter a phone number.', document.getElementById('phone'));
+        if(!course) return showError('Please select a course.', document.getElementById('course'));
+        if(!declaration) return showError('You must confirm the declaration.', document.getElementById('declaration'));
+
+        // Example: client-side accepted — normally submit via fetch/FormData
+        alert('Form validated (client-side). Submitting...');
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
